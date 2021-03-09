@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StepDetailFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.levitnudi.legacytableview.LegacyTableView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingredients_table"
+        android:layout_gravity="center"
+        />
+  <com.google.android.exoplayer2.ui.StyledPlayerView
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:padding="5dp"
+    android:id="@+id/video_player"
+    />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:text="Video Unavailable"
+        android:padding="5dp"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/unavailable"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="2. Whisk the graham cracker crumbs, 50 grams (1/4 cup) of sugar, and 1/2 teaspoon of salt together in a medium bowl. Pour the melted butter and 1 teaspoon of vanilla into the dry ingredients and stir together until evenly mixed."
+        android:layout_marginTop="270dp"
+        android:id="@+id/step_detail_tv"
+        android:textSize="22sp"
+        android:fontFamily="sans-serif"
+        android:padding="5dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|right"
+        android:id="@+id/next_button"
+        android:text="NEXT"
+        android:layout_marginBottom="10dp"
+
+        />
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|left"
+        android:text="Previous"
+        android:id="@+id/previous_button"
+        android:layout_marginBottom="10dp"
+        android:onClick="previousClicked"
+        />
+</FrameLayout>

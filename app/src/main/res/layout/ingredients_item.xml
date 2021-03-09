@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    app:cardMaxElevation="3dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="2dp"
+    app:contentPadding="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/icons_ingredients"
+            android:id="@+id/ingredients_icon"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/ingredients_icon"
+            tools:text="Ingredients"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:id="@+id/step_description"
+            />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
