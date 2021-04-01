@@ -70,20 +70,24 @@ class StepDetailFragment : Fragment() {
         descTextView = rootView.findViewById(R.id.step_detail_tv)
         nextButton = rootView.findViewById(R.id.next_button)
         previousButton  = rootView.findViewById(R.id.previous_button)
+        val unavailableTv = rootView.findViewById<TextView>(R.id.unavailable)
 
 
         if(isStep){
             showPrevNext(recipeOrStepId)
-            val unavailableTv = rootView.findViewById<TextView>(R.id.unavailable)
             nextButton.setOnClickListener{
                 recipeOrStepId = recipeOrStepId?.plus(1);
                 showPrevNext(recipeOrStepId)
                 val stepVideoDetails = JsonUtil.getStepDetailsFromRecipeAndStepId(mContext,food_id,(recipeOrStepId))
                 val videoUrl = stepVideoDetails.videoUrl
-                if(videoUrl.isEmpty())
-                    unavailableTv.visibility=View.VISIBLE
-                else
-                    unavailableTv.visibility=View.GONE
+                if(videoUrl.isEmpty()) {
+                    unavailableTv.visibility = View.VISIBLE
+                    playerView.visibility= View.GONE
+                }
+                else {
+                    unavailableTv.visibility = View.GONE
+                    playerView.visibility= View.VISIBLE
+                }
                 val desc = stepVideoDetails.description
                 Log.i("tag",desc+" and "+videoUrl.toString())
                 descTextView.text = desc
@@ -97,10 +101,14 @@ class StepDetailFragment : Fragment() {
                 showPrevNext(recipeOrStepId)
                 val stepVideoDetails = JsonUtil.getStepDetailsFromRecipeAndStepId(mContext,food_id,(recipeOrStepId))
                 val videoUrl = stepVideoDetails.videoUrl
-                if(videoUrl.isEmpty())
-                    unavailableTv.visibility=View.VISIBLE
-                else
-                    unavailableTv.visibility=View.GONE
+                if(videoUrl.isEmpty()) {
+                    unavailableTv.visibility = View.VISIBLE
+                    playerView.visibility= View.GONE
+                }
+                else {
+                    unavailableTv.visibility = View.GONE
+                    playerView.visibility= View.VISIBLE
+                }
                 val desc = stepVideoDetails.description
                 Log.i("tag",desc+" and "+videoUrl.toString())
                 descTextView.text = desc
@@ -112,13 +120,16 @@ class StepDetailFragment : Fragment() {
             val stepVideoDetails = JsonUtil.getStepDetailsFromRecipeAndStepId(mContext,food_id,recipeOrStepId)
             noOfSteps = stepVideoDetails.stepCount
             val videoUri = stepVideoDetails.videoUrl
-            if(videoUri.isEmpty())
-                unavailableTv.visibility=View.VISIBLE
-            else
-                unavailableTv.visibility=View.GONE
+            if(videoUri.isEmpty()) {
+                unavailableTv.visibility = View.VISIBLE
+                playerView.visibility= View.GONE
+            }
+            else {
+                unavailableTv.visibility = View.GONE
+                playerView.visibility= View.VISIBLE
+            }
             val desc = stepVideoDetails.description
             legacyTableView.visibility = View.GONE
-            playerView.visibility = View.VISIBLE
             descTextView.visibility = View.VISIBLE
             descTextView.text = desc
             playerView.player = player
@@ -133,7 +144,9 @@ class StepDetailFragment : Fragment() {
             descTextView.visibility = View.GONE
             previousButton.visibility=View.GONE
             nextButton.visibility=View.GONE
+            unavailableTv.visibility=View.GONE
             LegacyTableView.insertLegacyTitle("Id", "Ingredient", "Quantity", "Unit")
+            Log.i("info",recipeOrStepId.toString())
             val ingredients = JsonUtil.getIngredientsFromId(mContext, recipeOrStepId)
             for (i in 0..((ingredients.size) - 1)) {
                 LegacyTableView.insertLegacyContent(
@@ -148,7 +161,7 @@ class StepDetailFragment : Fragment() {
             legacyTableView.setTablePadding(40)
             legacyTableView.setZoomEnabled(true)
             legacyTableView.setShowZoomControls(true)
-            legacyTableView.setInitialScale(100)
+            legacyTableView.setInitialScale(60)
             legacyTableView.setTitleTextSize(50)
             legacyTableView.setTitleFont(LegacyTableView.BOLD)
             legacyTableView.setContentTextSize(40)

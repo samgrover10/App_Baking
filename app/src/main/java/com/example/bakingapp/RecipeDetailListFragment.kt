@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_ID = "id"
+private const val ARG_PANE="twoPane"
 
 /**
  * A simple [Fragment] subclass.
@@ -23,14 +24,16 @@ private const val ARG_ID = "id"
 class RecipeDetailListFragment : Fragment(),RecipeDetailListAdapter.OnStepOrIngredientClickListener {
     // TODO: Rename and change types of parameters
     private var id: Long? = null
+    private var mTwoPane:Boolean=false
 
-     lateinit var mAdapter :RecipeDetailListAdapter
+    lateinit var mAdapter :RecipeDetailListAdapter
     lateinit var mContext: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             id = it.getLong(ARG_ID)
+            mTwoPane=it.getBoolean(ARG_PANE)
         }
     }
 
@@ -62,27 +65,40 @@ class RecipeDetailListFragment : Fragment(),RecipeDetailListAdapter.OnStepOrIngr
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RecipeDetailListFragment.
+         * @return A new instance of fragment RecipeDetailListFragment.         * @param param2 Parameter 2.
+
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: Long) =
+        fun newInstance(param1: Long,twoPane : Boolean) =
             RecipeDetailListFragment().apply {
                 arguments = Bundle().apply {
                     putLong(ARG_ID, param1)
+                    putBoolean(ARG_PANE,twoPane)
                 }
             }
     }
 
     override fun onStepOrIngredientClick(position: Int) {
-        val intentToStepDetail = Intent(mContext,StepDetailActivity::class.java)
-        if(position == -2){
-            intentToStepDetail.putExtra("recipe_id",id)
-        }else{
-            intentToStepDetail.putExtra("id_food",id)
-            intentToStepDetail.putExtra("step_id",position.toLong())
+        if(mTwoPane){
+            val food_id:Long = id?:0
+            val stepDetailFragment :StepDetailFragment
+            val fragmentManager = fragmentManager
+            if(position==-2){
+             stepDetailFragment = StepDetailFragment.newInstance(food_id,false,-2)
+            }else {
+                stepDetailFragment = StepDetailFragment.newInstance(position.toLong(), true, food_id)
+            }
+            fragmentManager?.beginTransaction()?.replace(R.id.detail_info,stepDetailFragment)?.commit()
+        }else {
+            val intentToStepDetail = Intent(mContext, StepDetailActivity::class.java)
+            if (position == -2) {
+                intentToStepDetail.putExtra("recipe_id", id)
+            } else {
+                intentToStepDetail.putExtra("id_food", id)
+                intentToStepDetail.putExtra("step_id", position.toLong())
+            }
+            startActivity(intentToStepDetail)
         }
-        startActivity(intentToStepDetail)
     }
 }

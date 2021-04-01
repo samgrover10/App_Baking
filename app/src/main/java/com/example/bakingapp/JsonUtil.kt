@@ -29,7 +29,6 @@ class JsonUtil {
 
         if (json != null) {
             val jsonArray = JSONArray(json)
-
             for (i in 0..(jsonArray.length() - 1)) {
                 val jsonObj = jsonArray.getJSONObject(i)
                 val name = jsonObj.getString("name")

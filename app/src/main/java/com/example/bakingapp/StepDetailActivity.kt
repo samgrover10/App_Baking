@@ -21,7 +21,7 @@ class StepDetailActivity : AppCompatActivity() {
         }else if(intent.hasExtra("step_id")){
             isStep = true
             food_id = intent.getLongExtra("id_food",-1)
-            recipeOrStepid = intent.getLongExtra("step_id",-1);
+            recipeOrStepid = intent.getLongExtra("step_id",-1)
             Log.i("stepDetail",recipeOrStepid.toString())
         }
         val stepDetailFragment = StepDetailFragment.newInstance(recipeOrStepid,isStep,food_id)
